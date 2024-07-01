@@ -514,7 +514,7 @@ const options: RenovateOptions[] = [
     description:
       'Change this value to override the default Renovate sidecar image.',
     type: 'string',
-    default: 'ghcr.io/containerbase/sidecar:10.11.0',
+    default: 'ghcr.io/containerbase/sidecar:10.12.0',
     globalOnly: true,
   },
   {
@@ -968,6 +968,7 @@ const options: RenovateOptions[] = [
     description: 'Set to `false` to disable lock file updating.',
     type: 'boolean',
     default: true,
+    supportedManagers: ['npm'],
   },
   {
     name: 'skipInstalls',
@@ -1703,7 +1704,7 @@ const options: RenovateOptions[] = [
     env: false,
   },
   {
-    name: 'customChangelogUrl',
+    name: 'changelogUrl',
     description:
       'If set, Renovate will use this URL to fetch changelogs for a matched dependency. Valid only within a `packageRules` object.',
     type: 'string',
@@ -2801,13 +2802,12 @@ const options: RenovateOptions[] = [
       'Options to suppress various types of warnings and other notifications.',
     type: 'array',
     subType: 'string',
-    default: ['deprecationWarningIssues'],
+    default: [],
     allowedValues: [
       'artifactErrors',
       'branchAutomergeFailure',
       'configErrorIssue',
       'dependencyLookupWarnings',
-      'deprecationWarningIssues',
       'lockFileErrors',
       'missingCredentialsError',
       'onboardingClose',
