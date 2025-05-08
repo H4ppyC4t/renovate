@@ -194,7 +194,7 @@
     "commander": "13.1.0",
     "conventional-commits-detector": "1.0.3",
     "croner": "9.0.0",
-    "cronstrue": "2.59.0",
+    "cronstrue": "2.60.0",
     "deepmerge": "4.3.1",
     "dequal": "2.0.3",
     "detect-indent": "7.0.1",
@@ -314,7 +314,7 @@
     "@types/validate-npm-package-name": "4.0.2",
     "@types/xmldoc": "1.1.9",
     "@vitest/coverage-v8": "3.1.2",
-    "@vitest/eslint-plugin": "1.1.43",
+    "@vitest/eslint-plugin": "1.1.44",
     "aws-sdk-client-mock": "4.1.0",
     "callsite": "1.0.0",
     "common-tags": "1.8.2",
@@ -370,9 +370,6 @@
     ],
     "overrides": {
       "esbuild": "0.25.3"
-    },
-    "patchedDependencies": {
-      "re2": "patches/re2.patch"
     }
   }
 }

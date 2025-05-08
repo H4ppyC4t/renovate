@@ -7,11 +7,6 @@ settings:
 overrides:
   esbuild: 0.25.3
 
-patchedDependencies:
-  re2:
-    hash: 018babd22b7ce951bcd10d6246f1e541a7ac7ba212f7fa8985e774ece67d08e1
-    path: patches/re2.patch
-
 importers:
 
   .:
@@ -161,8 +156,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0
       cronstrue:
-        specifier: 2.59.0
-        version: 2.59.0
+        specifier: 2.60.0
+        version: 2.60.0
       deepmerge:
         specifier: 4.3.1
         version: 4.3.1
@@ -501,8 +496,8 @@ importers:
         specifier: 3.1.2
         version: 3.1.2(vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.1))
       '@vitest/eslint-plugin':
-        specifier: 1.1.43
-        version: 1.1.43(@typescript-eslint/utils@8.31.1(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3)(vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.1))
+        specifier: 1.1.44
+        version: 1.1.44(@typescript-eslint/utils@8.31.1(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3)(vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.1))
       aws-sdk-client-mock:
         specifier: 4.1.0
         version: 4.1.0
@@ -620,7 +615,7 @@ importers:
         version: 6.1.0
       re2:
         specifier: 1.21.4
-        version: 1.21.4(patch_hash=018babd22b7ce951bcd10d6246f1e541a7ac7ba212f7fa8985e774ece67d08e1)
+        version: 1.21.4
 
 packages:
 
@@ -1212,7 +1207,6 @@ packages:
 
   '@ls-lint/ls-lint@2.3.0':
     resolution: {integrity: sha512-lsT5/7SxtImOIjpefC9wcoXt2lkikKhCjd6U+Q9Z6X5h2HBU/71ggt+XStdodZ0HkJGO333zDUeec7JROMCPFw==}
-    cpu: [x64, arm64, s390x, ppc64le]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -2341,8 +2335,8 @@ packages:
       '@vitest/browser':
         optional: true
 
-  '@vitest/eslint-plugin@1.1.43':
-    resolution: {integrity: sha512-OLoUMO67Yg+kr7E6SjF5+Qvl2f6uNJ7ImQYnXT8WgnPiZE41ZQBsnzn70jehXrhFVadphHs2smk+yl0TFKLV5Q==}
+  '@vitest/eslint-plugin@1.1.44':
+    resolution: {integrity: sha512-m4XeohMT+Dj2RZfxnbiFR+Cv5dEC0H7C6TlxRQT7GK2556solm99kxgzJp/trKrZvanZcOFyw7aABykUTfWyrg==}
     peerDependencies:
       '@typescript-eslint/utils': '>= 8.24.0'
       eslint: '>= 8.57.0'
@@ -2902,8 +2896,8 @@ packages:
     resolution: {integrity: sha512-onMB0OkDjkXunhdW9htFjEhqrD54+M94i6ackoUkjHKbRnXdyEyKRelp4nJ1kAz32+s27jP1FsebpJCVl0BsvA==}
     engines: {node: '>=18.0'}
 
-  cronstrue@2.59.0:
-    resolution: {integrity: sha512-YKGmAy84hKH+hHIIER07VCAHf9u0Ldelx1uU6EBxsRPDXIA1m5fsKmJfyC3xBhw6cVC/1i83VdbL4PvepTrt8A==}
+  cronstrue@2.60.0:
+    resolution: {integrity: sha512-wyjlMlSaKyRjpDh1WP1Oqcy98zMT0OPJlBgffIr8Edx1/ZDpwkTb9IOzHL7CipyW5va7eJ9hC4D1X7gtq8Cuww==}
     hasBin: true
 
   cross-spawn@7.0.6:
@@ -8855,7 +8849,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/eslint-plugin@1.1.43(@typescript-eslint/utils@8.31.1(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3)(vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.1))':
+  '@vitest/eslint-plugin@1.1.44(@typescript-eslint/utils@8.31.1(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3)(vitest@3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.1))':
     dependencies:
       '@typescript-eslint/utils': 8.31.1(eslint@9.25.1)(typescript@5.8.3)
       eslint: 9.25.1
@@ -9476,7 +9470,7 @@ snapshots:
 
   croner@9.0.0: {}
 
-  cronstrue@2.59.0: {}
+  cronstrue@2.60.0: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -12113,7 +12107,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  re2@1.21.4(patch_hash=018babd22b7ce951bcd10d6246f1e541a7ac7ba212f7fa8985e774ece67d08e1):
+  re2@1.21.4:
     dependencies:
       install-artifact-from-github: 1.3.5
       nan: 2.22.2
