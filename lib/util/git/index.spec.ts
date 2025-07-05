@@ -1,4 +1,5 @@
 import fs from 'fs-extra';
+import type { PushResult } from 'simple-git';
 import Git from 'simple-git';
 import tmp from 'tmp-promise';
 import { GlobalConfig } from '../../config/global';
@@ -1230,6 +1231,29 @@ describe('util/git/index', { timeout: 10000 }, () => {
     });
   });
 
+  describe('pushCommit', () => {
+    it('should pass pushOptions to git.push', async () => {
+      const pushSpy = vi
+        .spyOn(SimpleGit.prototype, 'push')
+        .mockResolvedValue({} as PushResult);
+      await expect(
+        git.pushCommit({
+          sourceRef: defaultBranch,
+          targetRef: defaultBranch,
+          files: [],
+          pushOptions: ['ci.skip', 'foo=bar'],
+        }),
+      ).resolves.toBeTrue();
+      expect(pushSpy).toHaveBeenCalledWith(
+        'origin',
+        `${defaultBranch}:${defaultBranch}`,
+        expect.objectContaining({
+          '--push-option': ['ci.skip', 'foo=bar'],
+        }),
+      );
+    });
+  });
+
   describe('forkMode - normal working', () => {
     let upstreamBase: tmp.DirectoryResult;
     let upstreamOrigin: tmp.DirectoryResult;
@@ -1383,17 +1407,13 @@ describe('util/git/index', { timeout: 10000 }, () => {
       ).rejects.toThrow(TEMPORARY_ERROR);
     });
 
-    it('syncForkWithRemote() - throws error if no upstream exists', async () => {
+    it('syncForkWithRemote() - returns if no upstream exists', async () => {
       await git.initRepo({
         url: origin.path,
         defaultBranch,
       });
 
-      await git.syncGit();
-
-      await expect(git.syncForkWithUpstream(defaultBranch)).rejects.toThrow(
-        'No upstream remote exists, cannot sync fork',
-      );
+      await expect(git.syncForkWithUpstream(defaultBranch)).toResolve();
     });
   });
 });

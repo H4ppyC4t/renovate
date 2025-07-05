@@ -1,9 +1,10 @@
+import { AllManagersListLiteral } from '../../manager-list.generated';
 import { getManagers } from '../../modules/manager';
 import { getCustomManagers } from '../../modules/manager/custom';
 import { getPlatformList } from '../../modules/platform';
 import { getVersioningList } from '../../modules/versioning';
 import { supportedDatasources } from '../presets/internal/merge-confidence';
-import type { RenovateOptions } from '../types';
+import { type RenovateOptions, UpdateTypesOptions } from '../types';
 
 const options: RenovateOptions[] = [
   {
@@ -132,7 +133,6 @@ const options: RenovateOptions[] = [
     description:
       'The semver level to use when bumping versions. This is used by the `bumpVersions` feature.',
     type: 'string',
-    default: 'patch',
     parents: ['bumpVersions'],
   },
   {
@@ -148,7 +148,6 @@ const options: RenovateOptions[] = [
     description:
       'A name for the bumpVersion config. This is used for logging and debugging.',
     type: 'string',
-    default: null,
     parents: ['bumpVersions'],
   },
   {
@@ -171,6 +170,14 @@ const options: RenovateOptions[] = [
     parents: ['postUpgradeTasks'],
     default: [],
     cli: false,
+  },
+  {
+    name: 'dataFileTemplate',
+    description: 'A template to create post-upgrade command data file from.',
+    type: 'string',
+    parents: ['postUpgradeTasks'],
+    cli: false,
+    env: false,
   },
   {
     name: 'fileFilters',
@@ -360,10 +367,17 @@ const options: RenovateOptions[] = [
   },
   {
     name: 'enabled',
-    description: `Enable or disable Renovate bot.`,
+    description: `Enable or disable corresponding functionality.`,
     stage: 'package',
     type: 'boolean',
     default: true,
+    parents: [
+      '.',
+      'packageRules',
+      ...AllManagersListLiteral,
+      'hostRules',
+      ...UpdateTypesOptions,
+    ],
   },
   {
     name: 'constraintsFiltering',
@@ -1175,6 +1189,7 @@ const options: RenovateOptions[] = [
       'helmv3',
       'kubernetes',
       'kustomize',
+      'maven',
       'terraform',
       'vendir',
       'woodpecker',
@@ -1445,7 +1460,8 @@ const options: RenovateOptions[] = [
   },
   {
     name: 'matchSourceUrls',
-    description: 'A list of source URLs to exact match against.',
+    description:
+      'A list of exact match URLs (or URL patterns) to match sourceUrl against.',
     type: 'array',
     subType: 'string',
     allowString: true,
@@ -1842,7 +1858,7 @@ const options: RenovateOptions[] = [
     description:
       'If set, users can add this label to PRs to request they be kept updated with the base branch.',
     type: 'string',
-    supportedPlatforms: ['azure', 'gitea', 'github', 'gitlab'],
+    supportedPlatforms: ['azure', 'gitea', 'github', 'gitlab', 'gerrit'],
   },
   {
     name: 'rollbackPrs',
@@ -1882,7 +1898,7 @@ const options: RenovateOptions[] = [
     description: 'Label to make Renovate stop updating a PR.',
     type: 'string',
     default: 'stop-updating',
-    supportedPlatforms: ['azure', 'gitea', 'github', 'gitlab'],
+    supportedPlatforms: ['azure', 'gitea', 'github', 'gitlab', 'gerrit'],
   },
   {
     name: 'minimumReleaseAge',
@@ -2150,7 +2166,7 @@ const options: RenovateOptions[] = [
     description: 'Branch topic.',
     type: 'string',
     default:
-      '{{{depNameSanitized}}}-{{{newMajor}}}{{#if separateMinorPatch}}{{#if isPatch}}.{{{newMinor}}}{{/if}}{{/if}}.x{{#if isLockfileUpdate}}-lockfile{{/if}}',
+      '{{{depNameSanitized}}}-{{{newMajor}}}{{#if separateMinorPatch}}{{#if isPatch}}.{{{newMinor}}}{{/if}}{{/if}}{{#if separateMultipleMinor}}{{#if isMinor}}.{{{newMinor}}}{{/if}}{{/if}}.x{{#if isLockfileUpdate}}-lockfile{{/if}}',
     cli: false,
   },
   {
@@ -2446,6 +2462,7 @@ const options: RenovateOptions[] = [
     mergeable: true,
     cli: false,
     env: false,
+    parents: [...AllManagersListLiteral, 'customManagers'],
   },
   {
     name: 'postUpdateOptions',
